@@ -27,3 +27,11 @@ Strict separation between "working code" and "agent experiments":
 - Always use `pathlib` for file system operations.
 - Prefer asynchronous requests (e.g., `httpx` or `aiohttp`) if mining from multiple sources.
 - Ensure all scraped data is validated using `pydantic` models.
+
+## Lessons Learned & Troubleshooting
+- **Test Execution**: When running `pytest`, always use `python -m pytest` to ensure the current directory is added to `sys.path`. This prevents `ModuleNotFoundError` when tests try to import local modules.
+- **GitHub MCP Tools**: 
+    - `push_files` may fail with 404/tree errors in some environments; fallback to `create_or_update_file` if necessary.
+    - `create_or_update_file` requires an explicit `sha` if the file already exists.
+    - Path separators in GitHub API calls are sensitive; ensure `.github/workflows/` paths are correctly handled.
+- **Divergent Branches**: If local and remote `develop` diverge due to squash merges on GitHub, use `git fetch origin && git reset --hard origin/develop` to synchronize.
