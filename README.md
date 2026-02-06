@@ -16,4 +16,4 @@ This is a portfolio project demonstrating web scraping and data extraction capab
 ## 📦 How to Run
 1. Install dependencies:
    ```bash
-   pip install requests beautifulsoup4
+   pip install -r requirements.txt
