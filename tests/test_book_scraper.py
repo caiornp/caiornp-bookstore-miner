@@ -45,7 +45,7 @@ def test_scrape_books_success(mock_get):
     scrape_books()
 
     # Check if CSV was created
-    csv_file = Path("books_data.csv")
+    csv_file = Path("output/books_data.csv")
     assert csv_file.exists()
 
     # Verify content
@@ -57,3 +57,8 @@ def test_scrape_books_success(mock_get):
 
     # Cleanup
     csv_file.unlink()
+    # Attempt to remove the directory if empty, but don't fail if not
+    try:
+        csv_file.parent.rmdir()
+    except OSError:
+        pass
