@@ -18,4 +18,4 @@ This is a portfolio project demonstrating web scraping and data extraction capab
    ```bash
    pip install -r requirements.txt
 2. Run the application:
-   python book_scraper.py
+   ```bashpython book_scraper.py
