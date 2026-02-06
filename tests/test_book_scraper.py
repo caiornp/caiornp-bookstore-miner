@@ -1,3 +1,5 @@
+"""Tests for the book_scraper module."""
+
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -8,13 +10,15 @@ def test_book_model_validation():
     """Test that the Book Pydantic model validates data correctly."""
     data = {
         "title": "A Light in the Attic",
-        "price": "51.77",
+        "price": 51.77,
+        "currency": "GBP",
         "rating": "Three",
         "availability": "In stock",
     }
     book = Book(**data)
     assert book.title == data["title"]
     assert book.price == data["price"]
+    assert book.currency == data["currency"]
 
 
 @patch("book_scraper.requests.get")
@@ -45,7 +49,7 @@ def test_scrape_books_success(mock_get):
     scrape_books()
 
     # Check if CSV was created
-    csv_file = Path("books_data.csv")
+    csv_file = Path("output/books_data.csv")
     assert csv_file.exists()
 
     # Verify content
@@ -53,7 +57,13 @@ def test_scrape_books_success(mock_get):
         content = f.read()
         assert "A Light in the Attic" in content
         assert "51.77" in content
+        assert "GBP" in content
         assert "Three" in content
 
     # Cleanup
     csv_file.unlink()
+    # Attempt to remove the directory if empty, but don't fail if not
+    try:
+        csv_file.parent.rmdir()
+    except OSError:
+        pass
