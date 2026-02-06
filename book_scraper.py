@@ -50,7 +50,9 @@ def scrape_books() -> None:
         )
         data_to_save.append(book_data)
 
-    filename = Path("books_data.csv")
+    output_dir = Path("output")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    filename = output_dir / "books_data.csv"
     with filename.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(["Book Title", "Price", "Rating", "Status"])

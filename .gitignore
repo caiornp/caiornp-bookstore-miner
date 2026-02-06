@@ -31,3 +31,6 @@ env/
 
 # Logs
 *.log
+
+# Output
+output/

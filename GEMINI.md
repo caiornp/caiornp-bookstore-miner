@@ -27,6 +27,7 @@ Strict separation between "working code" and "agent experiments":
 - Always use `pathlib` for file system operations.
 - Prefer asynchronous requests (e.g., `httpx` or `aiohttp`) if mining from multiple sources.
 - Ensure all scraped data is validated using `pydantic` models.
+- **Remote Operations**: ALWAYS use GitHub MCP tools for remote operations (pushing files, creating branches, opening PRs). NEVER use local `git push`.
 
 ## Lessons Learned & Troubleshooting
 - **Test Execution**: When running `pytest`, always use `python -m pytest` to ensure the current directory is added to `sys.path`. This prevents `ModuleNotFoundError` when tests try to import local modules.
